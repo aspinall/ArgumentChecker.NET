@@ -57,8 +57,10 @@ namespace Aspinall.ArgumentChecker.Tests
         [TestMethod]
         public void IsNotEmpty_ReturnsSelf_WhenNotEmpty()
         {
-            var collection = new List<string>();
-            collection.Add("foo");
+            var collection = new List<string>
+            {
+                "foo"
+            };
             var checker = new ArgumentChecker<ICollection>(collection, nameof(collection));
 
             Assert.AreSame(checker, checker.IsNotEmpty());

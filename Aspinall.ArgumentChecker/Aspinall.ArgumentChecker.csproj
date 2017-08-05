@@ -6,7 +6,7 @@
     <PackageId>Aspinall.ArgumentChecker</PackageId>
     <Authors>Craig Aspinall</Authors>
     <Company>Craig Aspinall</Company>
-    <Description>A simple library providing a fluent API for checking argument values and throwing meaningful exceptions if the check conditions are not met.</Description>
+    <Description>Provides a fluent API for checking argument values and throwing meaningful exceptions if the check conditions are not met.</Description>
     <Copyright>Copyright © Craig Aspinall 2017</Copyright>
     <PackageLicenseUrl>https://raw.githubusercontent.com/aspinall/ArgumentChecker.NET/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/aspinall/ArgumentChecker.NET</PackageProjectUrl>
