@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Aspinall.ArgumentChecker</PackageId>
     <Authors>Craig Aspinall</Authors>
@@ -13,6 +13,7 @@
     <RepositoryUrl>https://github.com/aspinall/ArgumentChecker.NET.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Product>ArgumentChecker</Product>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>
