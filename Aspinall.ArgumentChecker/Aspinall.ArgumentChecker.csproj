@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <TargetFramework>net461</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Aspinall.ArgumentChecker</PackageId>
     <Authors>Craig Aspinall</Authors>
@@ -13,7 +13,8 @@
     <RepositoryUrl>https://github.com/aspinall/ArgumentChecker.NET.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Product>ArgumentChecker</Product>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
+    <PackageReleaseNotes>Removed .NetStandard as a target framework. Only targeting .NetFramework 4.6.1 now.</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
