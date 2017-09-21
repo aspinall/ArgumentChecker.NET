@@ -47,11 +47,20 @@ namespace Aspinall.ArgumentChecker.Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void IsNotEmpty_ThrowsException_WhenEmpty()
+        public void IsNotEmpty_ThrowsException_WhenCollectionIsEmpty()
         {
             var collection = new List<string>();
 
             CheckThat(collection, nameof(collection)).IsNotEmpty();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void IsNotEmpty_ThrowsException_WhenArrayIsEmpty()
+        {
+            var array = new string[0];
+
+            CheckThat(array, nameof(array)).IsNotEmpty();
         }
 
         [TestMethod]
@@ -145,6 +154,56 @@ namespace Aspinall.ArgumentChecker.Tests
             var checker = new ArgumentChecker<string>(foo, nameof(foo));
 
             Assert.AreSame(foo, checker.Value);
+        }
+
+        [TestMethod]
+        public void IsGreaterThan_ReturnsSelf_WhenGreaterThan()
+        {
+            var foo = 1;
+            var checker = new ArgumentChecker<int>(foo, nameof(foo));
+
+            Assert.AreSame(checker, checker.IsGreaterThan(0));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void IsGreaterThan_ThrowsException_WhenEqual()
+        {
+            var foo = 1;
+            CheckThat(foo, nameof(foo)).IsGreaterThan(1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void IsGreaterThan_ThrowsException_WhenLessThan()
+        {
+            var foo = 1;
+            CheckThat(foo, nameof(foo)).IsGreaterThan(2);
+        }
+
+        [TestMethod]
+        public void IsLessThan_ReturnsSelf_WhenLessThan()
+        {
+            var foo = 1;
+            var checker = new ArgumentChecker<int>(foo, nameof(foo));
+
+            Assert.AreSame(checker, checker.IsLessThan(2));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void IsLessThan_ThrowsException_WhenEqual()
+        {
+            var foo = 1;
+            CheckThat(foo, nameof(foo)).IsLessThan(1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void IsLessThan_ThrowsException_WhenGreaterThan()
+        {
+            var foo = 1;
+            CheckThat(foo, nameof(foo)).IsLessThan(0);
         }
     }
 }

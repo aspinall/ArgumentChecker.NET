@@ -10,7 +10,7 @@ namespace Aspinall.ArgumentChecker
     public class ArgumentChecker<T>
     {
         /// <summary>
-        /// The value passed to the <see cref="ArgumentChecker{T}.ArgumentChecker(T, string)"/> constructor.
+        /// The value passed to the <see cref="ArgumentChecker{T}"/> constructor.
         /// </summary>
         /// <example>
         /// You can use this to assert and assign the value on a single line:
@@ -26,7 +26,7 @@ namespace Aspinall.ArgumentChecker
         /// </example>       
         public T Value { get; }
 
-        private string Name;
+        private readonly string _name;
 
         /// <summary>
         /// Creates a new <see cref="ArgumentChecker{T}"/>.
@@ -36,7 +36,7 @@ namespace Aspinall.ArgumentChecker
         public ArgumentChecker(T argument, string name)
         {
             Value = argument;
-            Name = name;
+            _name = name;
         }
 
         /// <summary>
@@ -49,7 +49,37 @@ namespace Aspinall.ArgumentChecker
         {
             if (!Value.Equals(expectedValue))
             {
-                throw new ArgumentException($"{Name} must equal {expectedValue.ToString()}");
+                throw new ArgumentException($"{_name} must equal {expectedValue.ToString()}");
+            }
+            return this;
+        }
+
+        /// <summary>
+        /// Checks that <see cref="Value"/> is greater than the supplied comparison value.
+        /// </summary>
+        /// <remarks>If <see cref="Value"/> does not implement <see cref="IComparable"/> then no check is performed, no exception is thrown, and <c>self</c> is returned.</remarks>
+        /// <returns><c>self</c></returns>
+        /// <exception cref="ArgumentException">Thrown if <see cref="Value"/> implements <see cref="IComparable"/> and is less than or equal to the comparison value.</exception>
+        public ArgumentChecker<T> IsGreaterThan(T comparisonValue)
+        {
+            if (Value is IComparable comparable && comparable.CompareTo(comparisonValue) != 1)
+            {
+                throw new ArgumentException($"{_name} must be greater than {comparisonValue}, actual value is {Value}");
+            }
+            return this;
+        }
+
+        /// <summary>
+        /// Checks that <see cref="Value"/> is less than the supplied comparison value.
+        /// </summary>
+        /// <remarks>If <see cref="Value"/> does not implement <see cref="IComparable"/> then no check is performed, no exception is thrown, and <c>self</c> is returned.</remarks>
+        /// <returns><c>self</c></returns>
+        /// <exception cref="ArgumentException">Thrown if <see cref="Value"/> implements <see cref="IComparable"/> and is greater than or equal to the comparison value.</exception>
+        public ArgumentChecker<T> IsLessThan(T comparisonValue)
+        {
+            if (Value is IComparable comparable && comparable.CompareTo(comparisonValue) != -1)
+            {
+                throw new ArgumentException($"{_name} must be less than {comparisonValue}, actual value is {Value}");
             }
             return this;
         }
@@ -61,9 +91,9 @@ namespace Aspinall.ArgumentChecker
         /// <exception cref="ArgumentException">Thrown when <see cref="Value"/> is the default value for its type.</exception>
         public ArgumentChecker<T> IsNotDefaultValue()
         {
-            if (default(T).Equals(Value))
+            if (Value.Equals(default(T)))
             {
-                throw new ArgumentException($"{Name} cannot be the default value for {typeof(T).ToString()}");
+                throw new ArgumentException($"{_name} cannot be the default value for {typeof(T)}");
             }
             return this;
         }
@@ -78,7 +108,7 @@ namespace Aspinall.ArgumentChecker
         {
             if (Value is ICollection collection && collection.Count == 0)
             {
-                throw new ArgumentException($"{Name} cannot be empty");
+                throw new ArgumentException($"{_name} cannot be empty");
             }
             return this;
         }
@@ -92,7 +122,7 @@ namespace Aspinall.ArgumentChecker
         {
             if (Value == null)
             {
-                throw new ArgumentNullException(Name);
+                throw new ArgumentNullException(_name);
             }
             return this;
         }
@@ -105,10 +135,10 @@ namespace Aspinall.ArgumentChecker
         /// <exception cref="ArgumentException">Thrown if <see cref="Value"/> is empty or contains only whitespace characters.</exception>
         public ArgumentChecker<T> IsNotNullOrWhitespace()
         {
-            this.IsNotNull();
+            IsNotNull();
             if (Value is string && string.IsNullOrWhiteSpace(Value as string))
             {
-                throw new ArgumentException($"{Name} cannot be null, empty or whitespace");
+                throw new ArgumentException($"{_name} cannot be null, empty or whitespace");
             }
             return this;
         }

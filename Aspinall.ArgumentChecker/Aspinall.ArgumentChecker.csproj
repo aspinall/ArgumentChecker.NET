@@ -13,8 +13,8 @@
     <RepositoryUrl>https://github.com/aspinall/ArgumentChecker.NET.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Product>ArgumentChecker</Product>
-    <Version>1.0.2</Version>
-    <PackageReleaseNotes>Removed .NetStandard as a target framework. Only targeting .NetFramework 4.6.1 now.</PackageReleaseNotes>
+    <Version>1.1.0</Version>
+    <PackageReleaseNotes>Added IsLessThan(T) and IsGreaterThan(T) checks.</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
